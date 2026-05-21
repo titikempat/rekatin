@@ -1,0 +1,1320 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <title>Form Pemeriksaan PTM</title>
+  <style>
+    :root {
+      --bg-color: #ffeef4;
+      --form-bg: #fff;
+      --text-color: #444;
+      --label-color: #a64a7a;
+      --input-border: #f4c2cc;
+      --btn-color: #ff7ea8;
+      --shadow-color: #f8c2d0;
+    }
+    body.dark {
+      --bg-color: #1c1c1e;
+      --form-bg: #2c2c2e;
+      --text-color: #e5e5e7;
+      --label-color: #ff9ec9;
+      --input-border: #555;
+      --btn-color: #ff4785;
+      --shadow-color: #333;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg-color);
+      color: var(--text-color);
+      padding: 10px;
+    }
+
+    h2 {
+      text-align: center;
+      color: var(--label-color);
+    }
+
+    form {
+      background: var(--form-bg);
+      padding: 15px;
+      border-radius: 5px;
+      max-width: 100%;
+      margin: auto;
+      box-shadow: 0 0 10px var(--shadow-color);
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      color: var(--label-color);
+    }
+
+    input, select,textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid var(--input-border);
+      border-radius: 5px;
+      box-sizing: border-box;
+      background: white;
+    }
+    
+    .header {
+    display: flex;
+    align-items: center;
+    padding: 10px 0px;
+    background-color: #ffe6f0;
+    border-bottom: 2px solid #ffb6c1;
+    }
+    
+    .header img {
+    height: 50px;
+    margin-right: 10px;
+    max-width: 20vw;
+    }
+    
+    .header-title {
+    margin: 0;
+    color: #cc3366;
+    font-size: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    }
+    
+    @media (min-width: 768px) {
+    .header img {
+    height: 60px;
+    max-width: none;
+    }
+    
+    .header-title {
+    font-size: 24px;
+    }
+    }
+    
+    @media (min-width: 1024px) {
+    .header {
+    padding: 20px 40px;
+    }
+    
+    .header img {
+    height: 70px;
+    }
+    
+    .header-title {
+    font-size: 28px;
+    }
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      column-gap: 10px;
+      row-gap:2px;
+    }
+    
+    .grid-2col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 24px;
+    }
+    
+    .grid-2col label {
+    margin-bottom: 4px;
+    }
+    
+    .form-group {
+    display: flex;
+    flex-direction: column;
+    }
+
+    .form-group {
+      margin-bottom: 10px;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      background: var(--btn-color);
+      color: white;
+      font-size: 16px;
+      padding: 12px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .spinner {
+      display: none;
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .spinner div {
+      width: 24px;
+      height: 24px;
+      margin: auto;
+      border: 3px solid var(--btn-color);
+      border-top: 3px solid transparent;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    #toggleTheme {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      width: 40px;
+      height: 40px;
+      background: var(--btn-color);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #toggleTheme:hover {
+      background: var(--label-color);
+    }
+
+    @media (max-width: 600px) {
+      .grid-3 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  
+  #logoutBtn {
+  background-color: #003355;
+  color: white;
+  width: 40%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  bottom: 20px;
+  right: 50%;
+  transform:translateX(70%);
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+  text-align:center;
+  }
+  
+  #logoutBtn:hover {
+  background-color: #001f4d; /* warna navy yang lebih gelap saat hover */
+  }
+  
+  footer {
+  text-align: center;
+  font-size: 14px;
+  margin-top: auto;
+  padding: 15px 0;
+  color: var(--label-color);
+  }
+  
+   .spinner-container {
+   position: relative;
+   display: flex;
+   align-items: center;
+   height: 40px;
+   font-weight: bold;
+   font-size: 16px;
+   color: #fff;
+   overflow: hidden;
+   }
+   
+   .dots {
+   margin-right: 10px;
+   }
+   
+   .dot {
+   opacity: 0;
+   animation: blink 1.6s infinite;
+   }
+   
+   .dot:nth-child(2) { animation-delay: 0.2s; }
+   .dot:nth-child(3) { animation-delay: 0.4s; }
+   .dot:nth-child(4) { animation-delay: 0.6s; }
+   .dot:nth-child(5) { animation-delay: 0.8s; }
+   
+   @keyframes blink {
+   0%, 100% { opacity: 0; }
+   50% { opacity: 1; }
+   }
+   
+   .mail {
+   position: absolute;
+   left: 20%;
+   font-size: 24px;
+   animation: flyToRight 6s linear infinite;
+   }
+   
+   @keyframes flyToRight {
+   0% { transform: translateX(0); opacity: 1; }
+   100% { transform: translateX(100vw); opacity: 0; }
+   }
+   </style>
+   
+</head>
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login Pemeriksaan PTM</title>
+  
+</head>
+<body>
+<button id="toggleTheme" onclick="toggleDarkMode()">🌓</button>
+
+<div id="loginPage">
+  <div class="container">
+    <h2>Login Form</h2>
+    <label for="username">Username:</label>
+    <input type="text" id="username" placeholder="Masukkan username">
+    <label for="password">Password:</label>
+    <input type="password" id="password" placeholder="Masukkan password">
+    <button onclick="login()">Login</button>
+  </div>
+  <footer>
+    &copy;2025 PTM - 
+    UPT Puskesmas Mentikan.
+  </footer>
+</div>
+<!DOCTYPE html>
+  <html lang="id">
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulir Pemeriksaan PTM</title>
+  </head>
+  <body>
+<button id="toggleTheme" onclick="toggleDarkMode()">🌓</button>
+
+<div id="mainPage" style="display:none">
+<header class="header">
+    <img src="https://i.ibb.co.com/xSZw1LQN/20230526-190941.png" alt="Logo Puskesmas Mentikan">
+    <h1 class="header-title">UPT Puskesmas Mentikan</h1>
+  </header>
+<h2>Formulir Pemeriksaan PTM</h2>
+<form id="ptmForm">
+<h3>Identitas Pasien</h3>
+<div class="form-group">
+    <label for="tgl">Tanggal Pelaksanaan:</label>
+    <input type="date" id="tgl" required>
+  </div>
+ 
+ <div class="form-group">
+ <label for="nik">NIK:</label>
+ <input type="tel" id="nik" placeholder="Masukkan NIK" required onblur="cekNIK()">
+ <span id="nikLoading" style="display:none; color:blue; font-style:italic; margin-left: 10px;">
+ 🔄 Sek enteni sediluk,bekne Wes tau diinput....
+ </span>
+ </div>
+ 
+<div class="form-group">
+    <label for="wa">No WhatsApp:</label>
+    <input type="tel" id="wa" placeholder="No Whatsapp" required onblur="formatNomorWA(this)">
+ </div>
+
+  <div class="form-group">
+    <label for="nama">Nama:</label>
+    <input type="text" id="nama" placeholder="Nama Lengkap" required>
+  </div>
+
+  
+  
+  <div class="grid-3">
+  <div class="form-group">
+  <label for="tgllahir">Tgl Lahir:</label>
+  <input type="date" id="tgllahir">
+  </div>
+  
+  <div class="form-group">
+  <label for="usia">Usia:</label>
+  <input type="text" id="usia" readonly>
+  </div>
+  
+  <div class="form-group">
+  <label for="gender">Jenkel:</label>
+  <input type="text" id="gender" readonly>
+  </div>
+  </div>
+  
+  
+  <div class="form-group">
+    <label for="alamat">Alamat:</label>
+    <textarea id="alamat" rows="4" style="width:100%; resize:vertical;" placeholder="Alamat lengkap" required></textarea>
+    </div>
+  
+  
+  <div class="form-group">
+  <label for="kelurahan">Kelurahan:</label>
+  <select id="kelurahan" required>
+  <option value="">-- Pilih Kelurahan --</option>
+  <option value="Mentikan">Mentikan</option>
+  <option value="Kauman">Kauman</option>
+  <option value="Miji">Miji</option>
+  <option value="Pulorejo">Pulorejo</option>
+  <option value="Luar Wilayah">Luar Wilayah</option>
+  <option value="Luar Kota">Luar Kota</option>
+  </select>
+  </div>
+  
+  <div class="form-group">
+  <label for="pendidikan">Pendidikan Terakhir:</label>
+  <select id="pendidikan" required>
+  <option value="">-- Pilih Pendidikan --</option>
+  <option value="Tidak Sekolah">Tidak Sekolah</option>
+  <option value="SD/SLTP">SD/SLTP</option>
+  <option value="SLTA">SLTA</option>
+  <option value="Diploma">Diploma</option>
+  <option value="Sarjana">Sarjana</option>
+  <option value="Pascasarjana">Pascasarjana</option>
+  </select>
+  </div>
+  
+  <div class="form-group">
+  <label for="pekerjaan">Pekerjaan:</label>
+  <select id="pekerjaan" required>
+  <option value="">-- Pilih Pekerjaan --</option>
+  <option value="Tidak bekerja">Tidak bekerja</option>
+  <option value="Ibu Rumah Tangga">Ibu Rumah Tangga</option>
+  <option value="Wiraswasta">Wiraswasta</option>
+  <option value="Karyawan/Pegawai">Karyawan/Pegawai</option>
+  <option value="PNS">PNS</option>
+  <option value="TNI/Polri">TNI/Polri</option>
+  <option value="Guru">Guru</option>
+  <option value="Buruh">Buruh</option>
+  <option value="Lainnya">Lainnya</option>
+  </select>
+  </div>
+  
+  <div class="form-group">
+  <label for="asalOpd">Tempat kerja (Asal OPD):</label>
+  <textarea id="asalOpd" rows="2" style="width:100%; resize:vertical;" placeholder="Asal OPD diisi khusus jika kegiatan POSBINDU" required></textarea>
+  </div>
+  
+<h3>Faktor Risiko</h3>
+<div class="grid-2col">
+<div class="form-group">
+  <label for="sukagula">Konsumsi gula >4 sendok per hari:</label>
+  <select id="sukaGula" required>
+    <option value="">-- Pilih --</option>
+    <option value="Ya setiap hari">Ya setiap hari</option>
+    <option value="Tidak setiap hari">Tidak setiap hari</option>
+    <option value="Tidak">Tidak</option>
+  </select>
+</div>
+
+<div class="form-group">
+  <label for="garam">Konsumsi garam >1 sendok per hari:</label>
+  <select id="garam" required>
+    <option value="">-- Pilih --</option>
+    <option value="Ya setiap hari">Ya setiap hari</option>
+    <option value="Tidak setiap hari">Tidak setiap hari</option>
+    <option value="Tidak">Tidak</option>
+  </select>
+</div>
+
+<div class="form-group">
+  <label for="lemak">Konsumsi lemak >5 sendok per hari:</label>
+  <select id="lemak" required>
+    <option value="">-- Pilih --</option>
+    <option value="Ya setiap hari">Ya setiap hari</option>
+    <option value="Tidak setiap hari">Tidak setiap hari</option>
+    <option value="Tidak">Tidak</option>
+  </select>
+</div>
+
+<div class="form-group">
+  <label for="buahSayur">Konsumsi buah dan sayur:</label>
+  <select id="buahSayur" required>
+    <option value="">-- Pilih --</option>
+    <option value="Ya setiap hari">Ya setiap hari</option>
+    <option value="Tidak setiap hari">Tidak setiap hari</option>
+    <option value="Tidak">Tidak</option>
+  </select>
+</div>
+
+<div class="form-group">
+  <label for="aktif">Melakukan aktivitas fisik:</label>
+  <select id="aktif" required>
+    <option value="">-- Pilih --</option>
+    <option value="Ya setiap hari">Ya setiap hari</option>
+    <option value="Tidak setiap hari">Tidak setiap hari</option>
+    <option value="Tidak">Tidak</option>
+  </select>
+</div>
+
+<div class="form-group">
+  <label for="alkohol">Konsumsi alkohol 1 bulan terakhir:</label>
+  <select id="alkohol" required>
+    <option value="">-- Pilih --</option>
+    <option value="Ya setiap hari">Ya setiap hari</option>
+    <option value="Tidak setiap hari">Tidak setiap hari</option>
+    <option value="Tidak">Tidak</option>
+  </select>
+</div>
+</div>
+
+<h3>Riwayat Penyakit</h3>
+<div class="grid-2col">
+<div class="form-group">
+  <label for="riwayatKeluarga">Riwayat Penyakit Keluarga:</label>
+  <select id="riwayatKeluarga" required>
+    <option value="">-- Pilih --</option>
+    <option value="Tidak">Tidak</option>
+    <option value="Tidak tahu">Tidak tahu</option>
+    <option value="HIPERTENSI">HIPERTENSI</option>
+    <option value="DIABETES MELITUS TIPE 2">DIABETES MELITUS TIPE 2</option>
+    <option value="JANTUNG KORONER">JANTUNG KORONER</option>
+  </select>
+</div>
+
+<div class="form-group">
+  <label for="riwayatHipertensi">Apakah Anda menderita HT?</label>
+  <select id="riwayatHipertensi" required>
+    <option value="">-- Pilih --</option>
+    <option value="HIPERTENSI">HIPERTENSI</option>
+    <option value="Tidak">Tidak</option>
+    <option value="Tidak tahu">Tidak tahu</option>
+  </select>
+</div>
+
+<div class="form-group">
+  <label for="riwayatDM">Apakah Anda menderita Diabetes Melitus (DM)?</label>
+  <select id="riwayatDM" required>
+    <option value="">-- Pilih --</option>
+    <option value="DIABETES MELITUS TIPE 2">DIABETES MELITUS TIPE 2</option>
+    <option value="Tidak">Tidak</option>
+    <option value="Tidak tahu">Tidak tahu</option>
+  </select>
+</div>
+
+<div class="form-group">
+  <label for="penyakitLain">Apakah Anda menderita penyakit lainnya?</label>
+  <select id="penyakitLain" required>
+    <option value="">-- Pilih --</option>
+    <option value="JANTUNG KORONER">JANTUNG KORONER</option>
+    <option value="STROKE">STROKE</option>
+    <option value="ASMA">ASMA</option>
+    <option value="Tidak">Tidak</option>
+    <option value="Tidak tahu">Tidak tahu</option>
+  </select>
+</div>
+</div>
+
+<h3>Pemeriksaan Indera</h3>
+<div class="grid-2col">
+<div class="form-group">
+  <label for="mataKanan">Mata Kanan:</label>
+  <select id="mataKanan" required>
+    <option value="">-- Pilih --</option>
+    <option value="6/6 - 6/12">6/6 - 6/12</option>
+    <option value="<6/12 - 6/18">&lt;6/12 - 6/18</option>
+  </select>
+</div>
+
+<div class="form-group">
+  <label for="mataKiri">Mata Kiri:</label>
+  <select id="mataKiri" required>
+    <option value="">-- Pilih --</option>
+    <option value="6/6 - 6/12">6/6 - 6/12</option>
+    <option value="<6/12 - 6/18">&lt;6/12 - 6/18</option>
+  </select>
+</div>
+
+<div class="form-group">
+  <label for="telingaKanan">Telinga Kanan:</label>
+  <select id="telingaKanan" required>
+    <option value="">-- Pilih --</option>
+    <option value="Normal">Normal</option>
+    <option value="Gangguan Pendengaran">Gangguan Pendengaran</option>
+  </select>
+</div>
+
+<div class="form-group">
+  <label for="telingaKiri">Telinga Kiri:</label>
+  <select id="telingaKiri" required>
+    <option value="">-- Pilih --</option>
+    <option value="Normal">Normal</option>
+    <option value="Gangguan Pendengaran">Gangguan Pendengaran</option>
+  </select>
+</div>
+</div>
+
+  
+<h3>Pemeriksaan TTV</h3>
+  
+  <div class="grid-3">
+    <div class="form-group"><label>Tinggi Badan (cm)</label><input type="number" id="tb"></div>
+    <div class="form-group"><label>Berat Badan (kg)</label><input type="number" id="bb"></div>
+    <div class="form-group"><label>Lingkar Perut (cm)</label><input type="number" id="lp"></div>
+    <div class="form-group"><label>Sistolik (mmHg)</label><input type="number" id="sistolik"></div>
+    <div class="form-group"><label>Diastolik (mmHg)</label><input type="number" id="diastolik"></div>
+    <div class="form-group"><label>Gula Darah (mg/dl)</label><input type="number" id="gda"></div>
+    <div class="form-group"><label>Kolesterol (mg/dl)</label><input type="number" id="chol"></div>
+    <div class="form-group"><label>Trigliserida (mg/dl)</label><input type="number" id="trigliserida"></div>
+    <div class="form-group"><label>Asam Urat (mg/dl)</label><input type="number" id="asamurat"></div>
+  </div>
+
+<h3>Pemeriksaan Lanjutan</h3>
+<div class="grid-3">
+  <div class="form-group">
+    <label for="ecg">Cek ECG:</label>
+    <select name="ecg" id="ecg" required>
+      <option value="">-- Pilih --</option>
+      <option value="Normal">Normal</option>
+      <option value="Abnormal">Abnormal</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="skorCharta">Skor Charta:</label>
+    <input type="number" name="skorCharta" id="skorCharta" placeholder="gak wajib" min="0" required>
+  </div>
+
+  <div class="form-group">
+    <label for="risikoCharta">Risiko Charta:</label>
+    <input type="text" name="risikoCharta" id="risikoCharta" readonly>
+  </div>
+</div>
+
+<div class="grid-2col">
+  <div class="form-group">
+    <label for="pemeriksaanPayudara">Cek Payudara:</label>
+    <select name="pemeriksaanPayudara" id="pemeriksaanPayudara" required>
+      <option value="">-- Pilih --</option>
+      <option value="SADANIS">SADANIS</option>
+      <option value="USG PAYUDARA">USG PAYUDARA</option>
+      <option value="Tidak">Tidak</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="hasilSadanis">Hasil Sadanis:</label>
+    <select name="hasilSadanis" id="hasilSadanis" required>
+      <option value="">-- Pilih --</option>
+      <option value="Normal">Normal</option>
+      <option value="Curiga Kanker">Curiga Kanker</option>
+      <option value="Ditemukan benjolan">Ditemukan benjolan</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="iva">Cek IVA:</label>
+    <select name="iva" id="iva" required>
+      <option value="">-- Pilih --</option>
+      <option value="Ya">Ya</option>
+      <option value="Tidak">Tidak</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="hasilIva">Hasil IVA:</label>
+    <select name="hasilIva" id="hasilIva" required>
+      <option value="">-- Pilih --</option>
+      <option value="IVA Negatif">IVA Negatif</option>
+      <option value="IVA Positif">IVA Positif</option>
+      <option value="Curiga Kanker">Curiga Kanker</option>
+    </select>
+  </div>
+  </div>
+  
+  <div class="form-group">
+  <label for="merokok">Apakah Anda Merokok?</label>
+  <select name="merokok" id="merokok" required>
+  <option value="">-- Pilih --</option>
+  <option value="Ya">Ya</option>
+  <option value="Tidak">Tidak</option>
+  </select>
+  </div>
+  
+  <div id="lanjutanMerokok" style="display: none;">
+  <div class="form-group">
+  <label for="batangPerHari">Berapa batang per hari?</label>
+  <input type="number" id="batangPerHari" name="batangPerHari" min="0">
+  </div>
+  <div class="form-group">
+  <label for="bungkusPertahun">Sudah berapa tahun merokok?</label>
+  <input type="number" id="bungkusPertahun" name="bungkusPertahun" min="0">
+  </div>
+  </div>
+  
+ <div id="pertanyaanLanjutUsia" style="display:none;">
+ <h3>Pemeriksaan Puma</h3>
+ <div class="form-group">
+ <label for="napasPendek">Apakah Anda pernah merasa napas pendek ketika berjalan?</label>
+ <select id="napasPendek" name="napasPendek" required>
+ <option value="">-- Pilih --</option>
+ <option value="Tidak">Tidak</option>
+ <option value="Ya">Ya</option>
+ </select>
+ </div>
+ 
+ <div class="form-group">
+ <label for="dahak">Apakah Anda biasanya mempunyai dahak berlebihan?</label>
+ <select id="dahak" name="dahak" required>
+ <option value="">-- Pilih --</option>
+ <option value="Tidak">Tidak</option>
+ <option value="Ya">Ya</option>
+ </select>
+ </div>
+ 
+ <div class="form-group">
+ <label for="batuk">Apakah Anda biasanya batuk tanpa flu?</label>
+ <select id="batuk" name="batuk" required>
+ <option value="">-- Pilih --</option>
+ <option value="Tidak">Tidak</option>
+ <option value="Ya">Ya</option>
+ </select>
+ </div>
+ 
+ <div class="form-group">
+ <label for="spirometri">Pernah melakukan pemeriksaan spirometri?</label>
+ <select id="spirometri" name="spirometri" required>
+ <option value="">-- Pilih --</option>
+ <option value="Tidak">Tidak</option>
+ <option value="Ya">Ya</option>
+ </select>
+ </div>
+  </div>
+  
+<!-- Tombol kirim WhatsApp misalnya -->
+<div style="display: flex; gap: 10px; margin-top: 24px; justify-content: space-between;">
+  <!-- Tombol Save & Kirim WhatsApp -->
+  <button id="kirimBtn" onclick="kirimWA(this)" style="
+    flex: 1;
+    background-color: #ff80aa;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+  ">
+    <i class="fab fa-whatsapp"></i> <span id="btnText">Save & Kirim WhatsApp</span>
+    <div id="spinner" style="display: none;" class="spinner-container">
+      <span class="dots">Mengirim<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span></span>
+      <div class="mail">💌</div>
+    </div>
+  </button>
+
+  <!-- Tombol Reset Form -->
+  <button type="button" onclick="resetForm()" style="
+    flex: 1;
+    background-color: navy;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+  ">
+    <i class="fas fa-rotate-left"></i> Reset Form
+  </button>
+</div>
+
+  <footer>
+  &copy;2025 PTM - 
+  UPT Puskesmas Mentikan.
+  </footer>
+  
+
+  <button id="logoutBtn" onclick="logout()">Keluar gak</button>
+  </form></body></html>
+  
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
+  <script>
+  //integrasi spreadsheet
+  function simpanKeSpreadsheet(data) {
+  fetch("https://script.google.com/macros/s/AKfycbzGw46XbJwXP5PUVT_DXrqyoiQHaGB1Tp8iN7RoGrcDOgZdYOw_UU7kBNgP7blBDO8H/exec", {
+  method: "POST",
+  mode: "no-cors",
+  headers: {
+  "Content-Type": "application/json",
+  },
+  body: JSON.stringify(data)
+  })
+  .then(() => {
+  console.log("Data berhasil dikirim ke spreadsheet");
+  })
+  .catch((error) => {
+  console.error("Gagal kirim data ke spreadsheet", error);
+  });
+  }
+  
+  //dark mode
+  function toggleDarkMode() {
+  document.body.classList.toggle("dark");
+  }
+  
+  //hasil charta
+  document.getElementById("skorCharta").addEventListener("input", function () {
+  const skor = parseFloat(this.value);
+  const risiko = document.getElementById("risikoCharta");
+  
+  if (skor < 5) {
+  risiko.value = "Sangat Rendah (<5%)";
+  } else if (skor < 10) {
+  risiko.value = "Rendah (5–9%)";
+  } else if (skor < 20) {
+  risiko.value = "Sedang (10–19%)";
+  } else if (skor < 30) {
+  risiko.value = "Tinggi (20–29%)";
+  } else {
+  risiko.value = "Sangat Tinggi (≥30%)";
+  }
+  });
+  
+  
+  //lanjutan merokok
+  document.getElementById("merokok").addEventListener("change", function () {
+  const lanjutan = document.getElementById("lanjutanMerokok");
+  if (this.value === "Ya") {
+  lanjutan.style.display = "block";
+  } else {
+  lanjutan.style.display = "none";
+  // Reset nilai jika memilih "Tidak"
+  document.getElementById("batangPerHari").value = "";
+  document.getElementById("bungkusPerTahun").value = "";
+  }
+  });
+  
+  // Jalankan juga fungsi saat usia otomatis dari NIK
+  function isiDataDariNIK() {
+  const nik = document.getElementById('nik').value;
+  const genderInput = document.getElementById('gender');
+  const tglLahirInput = document.getElementById('tgllahir'); // perhatikan id-nya 'tgllahir' sesuai HTML
+  const usiaInput = document.getElementById('usia');
+
+  if (nik.length === 16) {
+    let tgl = nik.substring(6, 8);
+    const bln = nik.substring(8, 10);
+    const thn = nik.substring(10, 12);
+    let tahunLahir = parseInt(thn, 10);
+    const bulan = parseInt(bln, 10);
+
+    let tanggal = parseInt(tgl, 10);
+    let gender = "Laki-laki";
+
+    // Cek jenis kelamin dari tanggal > 40
+    if (tanggal > 40) {
+      tanggal = tanggal - 40;
+      gender = "Perempuan";
+    }
+
+    const tahunSekarang = new Date().getFullYear();
+    tahunLahir += (tahunSekarang % 100 - tahunLahir < 0) ? 1900 : 2000;
+
+    const tanggalLahir = new Date(tahunLahir, bulan - 1, tanggal);
+
+    // Format ke yyyy-mm-dd agar tidak error timezone
+    const pad = n => n.toString().padStart(2, '0');
+    tglLahirInput.value = `${tanggalLahir.getFullYear()}-${pad(tanggalLahir.getMonth() + 1)}-${pad(tanggalLahir.getDate())}`;
+
+    // Hitung usia
+    const today = new Date();
+    let usia = today.getFullYear() - tanggalLahir.getFullYear();
+    const m = today.getMonth() - tanggalLahir.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < tanggalLahir.getDate())) {
+      usia--;
+    }
+
+    genderInput.value = gender;
+    usiaInput.value = usia;
+
+    // Panggil fungsi tambahan jika ada
+    if (typeof cekUsiaTampilkanJantungParu === 'function') {
+      cekUsiaTampilkanJantungParu();
+    }
+  }
+}
+
+document.getElementById('nik').addEventListener('input', isiDataDariNIK);
+
+  
+  //nik validasi
+  // Fungsi tampilkan pertanyaan usia ≥ 40
+  function cekUsiaLanjutan() {
+  const usia = parseInt(document.getElementById("usia").value);
+  const lanjutanDiv = document.getElementById("pertanyaanLanjutUsia");
+  if (!isNaN(usia) && usia >= 40) {
+  lanjutanDiv.style.display = "block";
+  } else {
+  lanjutanDiv.style.display = "none";
+  }
+  }
+  
+  // Fungsi tampilkan form lanjutan jika merokok = "Ya"
+  document.getElementById("merokok").addEventListener("change", function () {
+  const lanjutan = document.getElementById("lanjutanMerokok");
+  lanjutan.style.display = this.value === "Ya" ? "block" : "none";
+  });
+  
+  // Ambil usia dari NIK dan panggil cekUsiaLanjutan
+  document.getElementById("nik").addEventListener("input", function () {
+  const nik = this.value.trim();
+  if (nik.length < 12) return;
+  
+  const tglLahirRaw = nik.substr(6, 6); // ddmmyy
+  let hari = parseInt(tglLahirRaw.substr(0, 2));
+  const bulan = parseInt(tglLahirRaw.substr(2, 2));
+  const tahun = parseInt(tglLahirRaw.substr(4, 2));
+  
+  let gender = "Laki-laki";
+  if (hari > 40) {
+  hari -= 40;
+  gender = "Perempuan";
+  }
+  
+  const fullYear = tahun > 30 ? 1900 + tahun : 2000 + tahun;
+  const tglLahir = new Date(fullYear, bulan - 1, hari);
+  
+  // Set tgl lahir & gender
+  document.getElementById("tgllahir").value = tglLahir.toISOString().split("T")[0];
+  document.getElementById("gender").value = gender;
+  
+  // Hitung usia
+  const today = new Date();
+  let usia = today.getFullYear() - tglLahir.getFullYear();
+  const m = today.getMonth() - tglLahir.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < tglLahir.getDate())) {
+  usia--;
+  }
+  
+  document.getElementById("usia").value = usia;
+  
+  // Cek usia lanjut
+  cekUsiaLanjutan();
+  });
+  
+  
+  //imt
+  
+  function klasifikasiIMT(bb, tb) {
+  let imt = bb / ((tb/100)**2);
+  if (imt < 18.5) return "Kurus";
+  else if (imt < 23) return "Normal";
+  else if (imt < 27) return "Gemuk";
+  else return "Obesitas";
+  }
+  
+  function statusTensi(s, d) {
+  if (s >= 180 || d >= 120) return "Krisis Hipertensi";
+  else if (s >= 160 || d >= 100) return "Hipertensi Tahap 2";
+  else if (s >= 140 || d >= 90) return "Hipertensi Tahap 1";
+  else if (s >= 120 && d >= 80) return "Normal Tinggi (Prehipertensi)";
+  else return "Normal";
+  }
+  
+  
+  function statusGula(gda) {
+  if (gda < 140) return "Normal";
+  else if (gda < 200) return "Pre-Diabetes Melitus";
+  else return "Diabetes Melitus";
+  }
+  
+  function statusKolesterol(val) {
+  return val < 200 ? "Normal" : "Hiperkolesterol";
+  }
+  
+  function statusTrigliserida(val) {
+  return val < 150 ? "Normal" : "Hipertrigliserida";
+  }
+  
+  function statusAsamUrat(val, gender) {
+  return (gender === "Laki-laki" && val > 7) || (gender === "Perempuan" && val > 6) ? "Hiperurisemia" : "Normal";
+  }
+  
+  //saran kesehatan
+  function saranKesehatan(status) {
+  const emoji = "⚠️";
+  const sarans = {
+  "Krisis Hipertensi": `${emoji} *Krisis Hipertensi*\nSegera cari pertolongan medis!\n*Hindari*: Makanan asin, makanan berlemak, minuman berenergi, kafein, dan alkohol.\n*Konsumsi*: Sayuran segar (bayam, brokoli), buah tinggi kalium (pisang, alpukat), dan makanan tinggi magnesium seperti almond dan biji-bijian.\n*Aktivitas*: Istirahat total, hindari aktivitas berat, lakukan pemantauan tekanan darah harian dan segera ke fasilitas kesehatan terdekat.`,
+  
+  "Hipertensi Tahap 2": `${emoji} *Hipertensi Tahap 2*\nAyo jaga tekanan darahmu lebih serius!\n*Hindari*: Makanan tinggi garam, mie instan, daging berlemak, dan makanan cepat saji.\n*Konsumsi*: Sayuran hijau, buah segar, ikan berlemak sehat seperti salmon dan sarden, serta kacang-kacangan.\n*Aktivitas*: Lakukan olahraga ringan seperti jalan cepat atau bersepeda minimal 30 menit setiap hari. Hindari stres dan tidur cukup. Konsultasikan ke dokter untuk penanganan lanjutan.`,
+  
+  "Hipertensi Tahap 1": `${emoji} *Hipertensi Tahap 1*\nSaatnya ubah gaya hidup sebelum terlambat!\n*Hindari*: Garam berlebihan, makanan kaleng, minuman manis, dan gorengan.\n*Konsumsi*: Makanan rendah sodium seperti kentang rebus, bayam, yogurt rendah lemak, dan buah tinggi serat.\n*Aktivitas*: Jalan kaki rutin, yoga, dan latihan pernapasan untuk mengurangi stres. Ukur tekanan darah secara berkala.`,
+  
+  "Pre-Hipertensi": `${emoji} *Pre-Hipertensi*\nCegah jadi hipertensi sekarang juga!\n*Hindari*: Camilan asin, minuman tinggi gula, dan kafein berlebih.\n*Konsumsi*: Pisang, ubi, brokoli, dan susu rendah lemak.\n*Aktivitas*: Lakukan aktivitas fisik ringan 30 menit setiap hari seperti peregangan atau naik turun tangga, serta kelola stres dengan relaksasi.`,
+  
+  "Hipertensi": `${emoji} *Hipertensi*\nWaktunya hidup lebih sehat untuk jantungmu!\n*Hindari*: Gorengan, makanan cepat saji, minuman kemasan manis, dan garam berlebih.\n*Konsumsi*: Buah segar, sayuran hijau, kacang almond, dan ikan rebus.\n*Aktivitas*: Jalan kaki pagi hari, tidur cukup 7-8 jam, dan hindari begadang.`,
+  
+  "Pre-Diabetes Melitus": `${emoji} *Pre-Diabetes*\nCegah berkembang menjadi diabetes dengan perubahan gaya hidup!\n*Hindari*: Gula tambahan, kue-kue manis, minuman kemasan, dan nasi putih.\n*Konsumsi*: Gandum utuh, ubi, sayuran berdaun hijau, dan air putih.\n*Aktivitas*: Mulai rutin bergerak 30 menit sehari seperti jalan kaki cepat, dan turunkan berat badan jika berlebih.`,
+  
+  "Diabetes Melitus": `${emoji} *Diabetes*\nKendalikan gula darahmu agar tetap sehat!\n*Hindari*: Gula tambahan, minuman manis, nasi putih, dan makanan tinggi karbohidrat sederhana.\n*Konsumsi*: Nasi merah, brokoli, tahu, tempe, dan ikan rebus.\n*Aktivitas*: Rutin berolahraga ringan hingga sedang seperti senam, bersepeda, atau jalan kaki minimal 5 hari/minggu. Konsultasi rutin ke dokter.`,
+  
+  "Hiperkolesterol": `${emoji} *Kolesterol Tinggi*\nSaatnya jaga pembuluh darah tetap bersih!\n*Hindari*: Jeroan, kulit ayam, santan, gorengan, dan makanan olahan.\n*Konsumsi*: Ikan laut (tuna, salmon), kacang-kacangan, buah alpukat, dan minyak zaitun.\n*Aktivitas*: Lakukan olahraga aerobik seperti jogging atau berenang 3-5 kali/minggu.`,
+  
+  "Hipertrigliserida": `${emoji} *Trigliserida Tinggi*\nAyo turunkan lemak darahmu sebelum timbul komplikasi!\n*Hindari*: Makanan tinggi gula, alkohol, dan makanan berlemak trans.\n*Konsumsi*: Ikan omega-3 (sarden, salmon), sayuran hijau, dan buah seperti apel dan pir.\n*Aktivitas*: Olahraga rutin 150 menit/minggu, seperti jogging, bersepeda, atau aerobik.`,
+  
+  "Hiperurisemia": `${emoji} *Asam Urat Tinggi*\nJangan tunggu sampai nyeri sendi menyerang!\n*Hindari*: Jeroan, daging merah, seafood, kacang-kacangan, dan bayam.\n*Konsumsi*: Air putih minimal 2-3 liter/hari, buah ceri, dan susu rendah lemak.\n*Aktivitas*: Rutin olahraga ringan, hindari kelelahan, dan jaga berat badan ideal.`,
+  
+  "Kurus": `${emoji} *Kurus*\nMari tingkatkan berat badan dengan cara sehat!\n*Hindari*: Melewatkan waktu makan, diet ekstrem, dan junk food.\n*Konsumsi*: Karbohidrat kompleks (nasi merah, roti gandum), susu full cream, telur, dan daging tanpa lemak.\n*Aktivitas*: Latihan kekuatan otot, makan 5-6 kali sehari dalam porsi kecil, dan tidur cukup.`,
+  
+  "Gemuk": `${emoji} *Gemuk*\nYuk mulai hidup sehat agar berat badan ideal!\n*Hindari*: Makanan tinggi kalori seperti gorengan, camilan manis, dan minuman soda.\n*Konsumsi*: Buah segar, sayuran kukus, air putih.\n*Aktivitas*: Jalan cepat 30 menit, yoga, dan perbanyak aktivitas fisik ringan harian.`,
+  
+  "Obesitas": `${emoji} *Obesitas*\nJangan tunggu sampai sakit, mulailah hidup sehat sekarang!\n*Hindari*: Makanan cepat saji, porsi besar, minuman bergula.\n*Konsumsi*: Sayur-sayuran kukus, buah tinggi serat seperti pepaya dan apel, dan protein nabati.\n*Aktivitas*: Olahraga intensitas sedang seperti kardio dan naik-turun tangga 3-5x/minggu, serta konsultasi ahli gizi.`
+  };
+  
+  return sarans[status] || "";
+  }
+  
+  
+  //fungsi nomor wa 0-62
+  function formatNomorWA(input) {
+  let value = input.value.replace(/\D/g, ''); // Hapus semua karakter non-digit
+  if (value.startsWith("0")) {
+  value = "62" + value.substring(1);
+  } else if (!value.startsWith("62")) {
+  value = "62" + value; // Jika langsung isi 812... tetap ditambahkan 62
+  }
+  input.value = value;
+  }
+  
+  function kirimWA(btn) {
+  const nama = document.getElementById("nama").value;
+  const gender = document.getElementById("gender").value;
+  let wa = document.getElementById("wa").value;
+  const tgl = document.getElementById("tgl").value;
+  const kelurahan = document.getElementById("kelurahan").value;
+  const iva = document.getElementById("iva").value;
+  const pendidikan = document.getElementById("pendidikan").value;
+  const sukaGula = document.getElementById("sukaGula").value;
+  const garam = document.getElementById("garam").value;
+  const lemak = document.getElementById("lemak").value;
+  const buahSayur = document.getElementById("buahSayur").value;
+  const aktif = document.getElementById("aktif").value;
+  const alkohol = document.getElementById("alkohol").value;
+  const riwayatKeluarga = document.getElementById("riwayatKeluarga").value;
+  const riwayatHipertensi = document.getElementById("riwayatHipertensi").value;
+  const riwayatDM = document.getElementById("riwayatDM").value;
+  const penyakitLain = document.getElementById("penyakitLain").value;
+  const mataKanan = document.getElementById("mataKanan").value;
+  const mataKiri = document.getElementById("mataKiri").value;
+  const telingaKanan = document.getElementById("telingaKanan").value;
+  const telingaKiri = document.getElementById("telingaKiri").value;
+  const skorCharta = document.getElementById("skorCharta").value;
+  const risikoCharta = document.getElementById("risikoCharta").value;
+  const pemeriksaanPayudara = document.getElementById("pemeriksaanPayudara").value;
+  const hasilSadanis = document.getElementById("hasilSadanis").value;
+  const hasilIva = document.getElementById("hasilIva").value;
+  const nik = document.getElementById("nik").value;
+  const alamat = document.getElementById("alamat").value;
+  const merokok = document.getElementById("merokok").value;
+  const batangPerHari = document.getElementById("batangPerHari").value;
+  const bungkusPertahun = document.getElementById("bungkusPertahun").value;
+  const napasPendek = document.getElementById("napasPendek").value;
+  const dahak = document.getElementById("dahak").value;
+  const batuk = document.getElementById("batuk").value;
+  const spirometri = document.getElementById("spirometri").value;
+  const pekerjaan = document.getElementById("pekerjaan").value;
+  const asalOpd = document.getElementById("asalOpd").value;
+  
+  
+  const tb = parseFloat(document.getElementById("tb").value);
+  const bb = parseFloat(document.getElementById("bb").value);
+  const lp = parseFloat(document.getElementById("lp").value);
+  const s = parseInt(document.getElementById("sistolik").value);
+  const d = parseInt(document.getElementById("diastolik").value);
+  const gda = parseInt(document.getElementById("gda").value);
+  const chol = parseInt(document.getElementById("chol").value);
+  const trig = parseInt(document.getElementById("trigliserida").value);
+  const urat = parseFloat(document.getElementById("asamurat").value);
+  const ecg = document.getElementById("ecg").value;
+  
+  
+  const isKosong = val => isNaN(val) || val === 0;
+  
+  const gizi = isKosong(tb) || isKosong(bb) ? "Tidak dilakukan pemeriksaan tsb" : klasifikasiIMT(bb, tb);
+  const tensi = isKosong(s) || isKosong(d) ? "Tidak dilakukan pemeriksaan tsb" : statusTensi(s, d);
+  const gula = isKosong(gda) ? "Tidak dilakukan pemeriksaan tsb" : statusGula(gda);
+  const kol = isKosong(chol) ? "Tidak dilakukan pemeriksaan tsb" : statusKolesterol(chol);
+  const tri = isKosong(trig) ? "Tidak dilakukan pemeriksaan tsb" : statusTrigliserida(trig);
+  const uric = isKosong(urat) ? "Tidak dilakukan pemeriksaan tsb" : statusAsamUrat(urat, gender);
+  
+ const saran = [tensi, gula, kol, tri, uric, gizi]
+ .filter(status => status !== "Tidak dilakukan pemeriksaan tsb")
+ .map(status => saranKesehatan(status))
+ .filter(Boolean);
+ 
+ // Tambahkan saran khusus jika ECG abnormal
+ if (ecg === "Abnormal") {
+ saran.push("⚠️ *Hasil ECG* menunjukkan kelainan. Disarankan pemeriksaan lanjutan ke fasilitas kesehatan.");
+ }
+ 
+ // Gabungkan semua saran jadi satu teks
+ const saranText = saran.length ? "\n🩺🧑‍⚕️ *Rekomendasi Kesehatan:*\n" + saran.join("\n") : "";
+ 
+  const msg = `Hallo kak *${nama}*
+  
+ Berikut hasil Pemeriksaan Penyakit Tidak Menular Anda pada *${new Date(tgl).toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}* :
+  
+  📏 *TB:* ${isKosong(tb) ? "-" : tb + " cm"}
+  ⚖️ *BB:* ${isKosong(bb) ? "-" : bb + " kg"}
+  📐 *LP:* ${isKosong(lp) ? "-" : lp + " cm"}
+  👤 *Status Gizi:* ${gizi}
+  
+  ❤ *Tensi:* ${isKosong(s) || isKosong(d) ? "-" : s + "/" + d + " mmHg"}
+  📊 *Status Tensi:* ${tensi}
+  
+  💉 *GDA:* ${isKosong(gda) ? "-" : gda + " mg/dl"}
+  🍬 *Status Gula:* ${gula}
+  
+  🥚 *CHOL:* ${isKosong(chol) ? "-" : chol + " mg/dl"}
+  ❤️ *Status Kolesterol:* ${kol}
+  
+  🍟 *Trigliserida:* ${isKosong(trig) ? "-" : trig + " mg/dl"}
+  📈 *Status Trigliserida:* ${tri}
+  
+  🦴 *Asam Urat:* ${isKosong(urat) ? "-" : urat + " mg/dl"}
+  🥜 *Status Asam Urat:* ${uric}
+  
+  💓 *Rekam Jantung:* ${ecg === "" ? "-" : ecg}
+  
+  ${saranText}
+  
+  *Ayo Lawan Penyakit Tidak Menular dengan CERDIK:*
+  ✅ Cek kesehatan secara berkala
+  🚭 Enyahkan asap rokok
+  🏃 Rajin aktivitas fisik
+  🥗 Diet seimbang
+  🛌 Istirahat cukup
+  🧘 Kelola stres
+  
+  Yuk follow media sosial kami:
+  📸 Instagram: @puskesmasmentikan
+  🎵 TikTok: @puskesmasmentikan
+  ▶️ YouTube: @puskesmasmentikan
+  🌐 Website: https://bit.ly/mypuskesmasmentikan
+  
+  Salam sehat,
+  *UPT. Puskesmas Mentikan*`;
+  
+  
+  const data = {
+  nama, gender, wa, tgl, tb, bb, lp, s, d, gda, chol, trig, urat,ecg,iva,
+  kelurahan,pendidikan,sukaGula,garam,lemak,buahSayur,aktif,alkohol,
+  riwayatKeluarga,riwayatHipertensi,riwayatDM,penyakitLain,
+  mataKanan,mataKiri,telingaKanan,telingaKiri,
+  skorCharta,risikoCharta,pemeriksaanPayudara,hasilSadanis,hasilIva,
+  nik,alamat,merokok,batangPerHari,bungkusPertahun,napasPendek,dahak,batuk,spirometri,pekerjaan,asalOpd
+  };
+  
+  simpanKeSpreadsheet(data);
+  
+  btn.disabled = true;
+  document.getElementById("btnText").style.display = "none";
+  document.getElementById("spinner").style.display = "block";
+  document.getElementById("spinner").style.display = "flex";
+  // Sembunyikan kembali setelah selesai
+  // document.getElementById("spinner").style.display = "none";
+  
+  setTimeout(() => {
+  window.open(`https://wa.me/${wa}?text=${encodeURIComponent(msg)}`, '_blank');
+  btn.disabled = false;
+  document.getElementById("btnText").style.display = "inline";
+  document.getElementById("spinner").style.display = "none";
+  }, 1000);
+  }
+  </script>
+  
+  </body>
+  </html>
+  
+</script>
+</body>
+</html>
+
+<script>
+const defaultUser = "rekapptm";
+const defaultPass = "titikempat";
+
+function toggleDarkMode() {
+  document.body.classList.toggle("dark");
+}
+
+function login() {
+  const u = document.getElementById("username").value.trim();
+  const p = document.getElementById("password").value.trim();
+  if (u === defaultUser && p === defaultPass) {
+    localStorage.setItem("isLoggedIn", "true");
+    showMain();
+    
+  } else {
+    alert("Username / Password salah!");
+  }
+}
+
+function logout() {
+  localStorage.removeItem("isLoggedIn");
+  document.getElementById("mainPage").style.display = "none";
+  document.getElementById("loginPage").style.display = "block";
+}
+
+function showMain() {
+  document.getElementById("loginPage").style.display = "none";
+  document.getElementById("mainPage").style.display = "block";
+}
+
+window.onload = () => {
+  if (localStorage.getItem("isLoggedIn") === "true") {
+    showMain();
+  }
+};
+
+</script>
+</body>
+</html>
+
+<script>
+  function cekNIK() {
+    const nik = document.getElementById("nik").value.trim();
+    const loading = document.getElementById("nikLoading");
+
+    if (!nik) return;
+
+    if (loading) loading.style.display = "inline";
+
+    fetch("https://script.google.com/macros/s/AKfycbzGw46XbJwXP5PUVT_DXrqyoiQHaGB1Tp8iN7RoGrcDOgZdYOw_UU7kBNgP7blBDO8H/exec?nik=" + nik)
+      .then(response => response.json())
+      .then(data => {
+        if (loading) loading.style.display = "none";
+
+        if (data.found) {
+          // Pop-up singkat untuk info bahwa data ditemukan
+          Swal.fire({
+            icon: 'success',
+            title: 'Datae ono gaes',
+            text: 'Data awal wes ada,lanjut data pemeriksaan seng anyar ya....',
+            timer: 1000,
+            showConfirmButton: false,
+            timerProgressBar: true
+          });
+
+          // Isi form otomatis
+          // Isi form otomatis dari database jika NIK ditemukan
+document.getElementById("nama").value = data.nama || "";
+document.getElementById("alamat").value = data.alamat || "";
+document.getElementById("kelurahan").value = data.kelurahan || "";
+document.getElementById("pendidikan").value = data.pendidikan || "";
+document.getElementById("pekerjaan").value = data.pekerjaan || "";
+document.getElementById("sukaGula").value = data.suka_gula || "";
+document.getElementById("garam").value = data.garam || "";
+document.getElementById("lemak").value = data.lemak || "";
+document.getElementById("buahSayur").value = data.buah_sayur || "";
+document.getElementById("aktif").value = data.aktif || "";
+document.getElementById("alkohol").value = data.alkohol || "";
+document.getElementById("riwayatKeluarga").value = data.riwayat_keluarga || "";
+document.getElementById("wa").value = data.wa || "";
+document.getElementById("asalOpd").value = data.asal_opd || "";
+document.getElementById("riwayatHipertensi").value = data.riwayat_hipertensi || "";
+document.getElementById("riwayatDM").value = data.riwayat_dm || "";
+document.getElementById("penyakitLain").value = data.penyakit_lain || "";
+
+// Field tambahan
+document.getElementById("mataKanan").value = data.mata_kanan || "";
+document.getElementById("mataKiri").value = data.mata_kiri || "";
+document.getElementById("telingaKanan").value = data.telinga_kanan || "";
+document.getElementById("telingaKiri").value = data.telinga_kiri || "";
+document.getElementById("ecg").value = data.ecg || "";
+document.getElementById("skorCharta").value = data.skor_charta || "";
+document.getElementById("risikoCharta").value = data.risiko_charta || "";
+document.getElementById("pemeriksaanPayudara").value = data.pemeriksaan_payudara || "";
+document.getElementById("hasilSadanis").value = data.hasil_sadanis || "";
+document.getElementById("iva").value = data.iva || "";
+document.getElementById("hasilIva").value = data.hasil_iva || "";
+document.getElementById("merokok").value = data.merokok || "";
+document.getElementById("batangPerHari").value = data.batang_per_hari || "";
+document.getElementById("bungkusPertahun").value = data.bungkus_pertahun || "";
+document.getElementById("napasPendek").value = data.napas_pendek || "";
+document.getElementById("dahak").value = data.dahak || "";
+document.getElementById("batuk").value = data.batuk || "";
+document.getElementById("spirometri").value = data.spirometri || "";
+// Sembunyikan bagian yang tidak perlu jika NIK ditemukan
+sembunyikanFieldPemeriksaanLengkap();
+        } else {
+          // NIK tidak ditemukan
+          Swal.fire({
+            icon: 'info',
+            title: 'NIK ora ketemu',
+            text: 'NIK iki durung ono nang database. Monggo lanjutno ngisi data ya....',
+            confirmButtonText: 'ngerti kan,mosok gak ngerti'
+          });
+          return;
+        }
+      })
+      .catch(error => {
+        console.error("Terjadi kesalahan saat mengecek NIK:", error);
+        if (loading) loading.style.display = "none";
+        Swal.fire({
+          icon: 'error',
+          title: 'Kesalahan jaringan',
+          text: 'Gagal menghubungi server. Coba ulangi beberapa saat lagi.',
+          confirmButtonText: 'Ngerti'
+        });
+      });
+  }
+
+//sembungikan jika nik ketemu
+function sembunyikanFieldPemeriksaanLengkap() {
+  const fieldIDs = [
+    // Faktor Risiko
+    "sukaGula", "garam", "lemak", "buahSayur", "aktif", "alkohol",
+    // Riwayat Penyakit
+    "riwayatKeluarga", "riwayatHipertensi", "riwayatDM", "penyakitLain",
+    // Pemeriksaan Indera
+    "mataKanan", "mataKiri", "telingaKanan", "telingaKiri",
+    // Pemeriksaan Lanjutan
+    "ecg", "skorCharta", "risikoCharta",
+    "pemeriksaanPayudara", "hasilSadanis", "iva", "hasilIva",
+    "spirometri", "merokok", "batangPerHari", "bungkusPertahun",
+    "napasPendek", "dahak", "batuk"
+  ];
+
+  fieldIDs.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      const wrapper = el.closest(".form-group") || el.closest(".input-group") || el.closest("tr") || el.parentElement;
+      if (wrapper) wrapper.style.display = "none";
+    }
+  });
+}
+
+function resetForm() {
+  location.reload(); // akan refresh halaman, otomatis kosongkan form
+}
+
+</script>
